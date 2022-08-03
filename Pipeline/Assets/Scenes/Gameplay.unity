@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938118055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25780424, y: -0.1604764, z: -4.409618}
+  m_LocalPosition: {x: -2, y: -1.95, z: -4.409618}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -250,6 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: {fileID: 11400000, guid: 9cb7a9a1e09ddce43b9f745a33ba55c7, type: 2}
+  tileGO: {fileID: 2412127136588571553, guid: b2c7530351e95ec4a8eee508541a9695, type: 3}
+  pipes: {fileID: 1956885802}
 --- !u!1 &1563011524
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +281,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1563011526
 MonoBehaviour:
@@ -299,4 +301,34 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 507897b127e4d034787963a3294bd1ab, type: 2}
   - {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
   - {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
-  board: {fileID: 938118056}
+  board: {fileID: 1956885802}
+--- !u!1 &1956885801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1956885802}
+  m_Layer: 0
+  m_Name: Pupes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1956885802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956885801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

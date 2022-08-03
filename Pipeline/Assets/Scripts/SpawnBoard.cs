@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpawnBoard : MonoBehaviour
 {
     public LevelData level;
+    public GameObject tileGO;
+    public Transform pipes;
     private Transform levelTransform;
     private Transform board;
     private Quaternion[] dir = new Quaternion[] {Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -90), Quaternion.Euler(0, 0, -180), Quaternion.Euler(0, 0, -270)};
@@ -17,22 +19,23 @@ public class SpawnBoard : MonoBehaviour
         Transform levelTransform = level.content.transform;
         foreach(Transform child in levelTransform)
         {
-            Instantiate(child.gameObject, child.position, Quaternion.identity, board);
+            Instantiate(child.gameObject, child.position, child.rotation, pipes);
         }
+        SpawnMap();
         Randomize();
     }
 
     private void Randomize()
     {
-        foreach(Transform child in board)
+        foreach(Transform child in pipes)
             if (child.gameObject.tag == angleTag || child.gameObject.tag == flatTag)
                 child.rotation = dir[Random.Range(0, dir.Length-1)];
     }
 
-    /*private void Start()
+    private void SpawnMap()
     {
-        int xSize = size;
-        int ySize = size;
+        int xSize = level.size;
+        int ySize = level.size;
         GameObject[,] tileArr = new GameObject[xSize, ySize];
         float xPos = transform.position.x;
         float yPos = transform.position.y;
@@ -52,6 +55,6 @@ public class SpawnBoard : MonoBehaviour
                 tileArr[x, y] = newTile;
             }            
         }
-    }*/
+    }
 
 }

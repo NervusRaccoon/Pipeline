@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
     public Transform board;
     private List<GameObject> startTile = new List<GameObject>();
-    private Vector2[] dirRay = new Vector2[] {Vector2.down, Vector2.left, Vector2.right};
+    private Vector2[] dirRay = new Vector2[] {Vector2.up, Vector2.down, Vector2.left, Vector2.right};
     private GameObject finish = null;
     
     private void Start()
@@ -49,6 +49,42 @@ public class GameController : MonoBehaviour
     }
 
     private void Neighbours(GameObject startTile)
+    {
+        List<GameObject> list = new List<GameObject>();
+        list.Add(startTile);
+        GameObject prevTile = startTile;
+        bool drop = false;
+        while (!drop)
+        {
+            for (int i = 0; i < dirRay.Length; i++)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(prevTile.transform.position.x, prevTile.transform.position.y)
+                                                    + prevTile.GetComponent<BoxCollider2D>().bounds.size.magnitude*dirRay[i], dirRay[i]); 
+                if (hit.collider != null)
+                {     
+                    GameObject tile = hit.collider.gameObject;
+
+                    if (prevTile.GetComponent<BoxCollider2D>().IsTouching(hit.collider) && tile != prevTile)
+                    {
+                        prevTile = tile;
+                        list.Add(prevTile);
+                        if (tile.tag == "Outgoing")
+                        {
+                            drop = true;
+                            finish = tile;
+                        }
+                    }
+                    else
+                    {
+                        drop = true;
+                    }
+                }
+            }
+        }
+        Debug.Log(list.Count);
+    }
+
+    /*private void Neighbours(GameObject startTile)
     {
         GameObject prevTile = startTile;
         bool drop = false;
@@ -139,5 +175,5 @@ public class GameController : MonoBehaviour
                     }
                 }
             }
-    }
+    }*/
 }
