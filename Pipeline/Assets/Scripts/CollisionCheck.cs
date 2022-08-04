@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class CollisionCheck : MonoBehaviour
 {
-    public event System.Action<GameObject> onTouched;
+    [SerializeField] public List<Collision2D> collisions = new List<Collision2D>();
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        onTouched?.Invoke(collision.gameObject);
+        collisions.Add(collision);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        collisions.Remove(collision);
     }
 }

@@ -13,5 +13,39 @@ MonoBehaviour:
   m_Name: Level0
   m_EditorClassIdentifier: 
   name: Level0
-  size: 5
-  content: {fileID: 3065197716323737930, guid: 98bb5d8efbdec2f489c178122f97a54d, type: 3}
+  sizeX: 5
+  sizeY: 5
+  content:
+  - pos: {x: 1, y: 0}
+    rotZ: -270
+    tile: {fileID: 11400000, guid: 507897b127e4d034787963a3294bd1ab, type: 2}
+  - pos: {x: 1, y: 1}
+    rotZ: -90
+    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
+  - pos: {x: 2, y: 1}
+    rotZ: 0
+    tile: {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
+  - pos: {x: 3, y: 1}
+    rotZ: -270
+    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
+  - pos: {x: 1, y: 2}
+    rotZ: 0
+    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
+  - pos: {x: 2, y: 2}
+    rotZ: 0
+    tile: {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
+  - pos: {x: 3, y: 2}
+    rotZ: -180
+    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
+  - pos: {x: 1, y: 3}
+    rotZ: -90
+    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
+  - pos: {x: 2, y: 3}
+    rotZ: 0
+    tile: {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
+  - pos: {x: 3, y: 3}
+    rotZ: -270
+    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
+  - pos: {x: 3, y: 4}
+    rotZ: -90
+    tile: {fileID: 11400000, guid: a09c248539594284380dad1538720c0e, type: 2}

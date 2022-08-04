@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Empty
   m_EditorClassIdentifier: 
   name: Empty
-  img: {fileID: -3087928711210884387, guid: 3d5c3ef31f86b1c47aeda2813a790c1f, type: 3}
-  tag: Empty
+  pref: {fileID: 2412127136588571553, guid: b2c7530351e95ec4a8eee508541a9695, type: 3}

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Flat
   m_EditorClassIdentifier: 
   name: Flat
-  img: {fileID: -1768044199346558973, guid: 3d5c3ef31f86b1c47aeda2813a790c1f, type: 3}
-  tag: Playable
+  pref: {fileID: 8856052500699015418, guid: 91c78408eeb06024ebe505ed96c8caff, type: 3}

@@ -6,6 +6,5 @@ using UnityEngine;
 public class TileData : ScriptableObject 
 {
     public string name;
-    public Sprite img;
-    public string tag;
+    public GameObject pref;
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class SpawnBoard : MonoBehaviour
 {
     public LevelData level;
-    public GameObject tileGO;
+    public GameObject empty;
     public Transform pipes;
-    private Transform levelTransform;
+    //public Transform levelTransform;
     private Transform board;
     private Quaternion[] dir = new Quaternion[] {Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -90), Quaternion.Euler(0, 0, -180), Quaternion.Euler(0, 0, -270)};
     private const string flatTag = "Flat";
@@ -16,12 +16,13 @@ public class SpawnBoard : MonoBehaviour
     private void Start()
     {
         board = this.transform;
-        Transform levelTransform = level.content.transform;
+        /*Transform levelTransform = level.content.transform;
         foreach(Transform child in levelTransform)
         {
             Instantiate(child.gameObject, child.position, child.rotation, pipes);
-        }
+        }*/
         SpawnMap();
+        SpawnPipes();
         Randomize();
     }
 
@@ -34,19 +35,19 @@ public class SpawnBoard : MonoBehaviour
 
     private void SpawnMap()
     {
-        int xSize = level.size;
-        int ySize = level.size;
+        int xSize = level.sizeX;
+        int ySize = level.sizeY;
         GameObject[,] tileArr = new GameObject[xSize, ySize];
         float xPos = transform.position.x;
         float yPos = transform.position.y;
-        Vector2 tileSize = tileGO.GetComponent<SpriteRenderer>().bounds.size;
+        Vector2 tileSize = empty.GetComponent<SpriteRenderer>().bounds.size;
 
         int count = 0;
         for (int x = 0; x < xSize; x++)
         {
             for (int y = 0; y < ySize; y++)
             {
-                GameObject newTile = Instantiate(tileGO, transform.position, Quaternion.identity);
+                GameObject newTile = Instantiate(empty, transform.position, Quaternion.identity);
                 newTile.transform.position = new Vector3(xPos + (tileSize.x*x), yPos + (tileSize.y*y), 0);
                 newTile.transform.parent = transform;
                 newTile.name = count.ToString();
@@ -55,6 +56,17 @@ public class SpawnBoard : MonoBehaviour
                 tileArr[x, y] = newTile;
             }            
         }
+    }
+
+    private void SpawnPipes()
+    {
+        foreach(TilePos pipe in level.content)
+        {
+            GameObject newTile = Instantiate(pipe.tile.pref, Vector3.zero, Quaternion.identity, pipes);
+            newTile.name = pipe.tile.name;
+            newTile.transform.Rotate(0, 0, pipe.rotZ);
+            newTile.transform.localPosition = pipe.pos;
+        }            
     }
 
 }

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Outgoing
   m_EditorClassIdentifier: 
   name: Outgoing
-  img: {fileID: -1842589531783952824, guid: 3d5c3ef31f86b1c47aeda2813a790c1f, type: 3}
-  tag: Outgoing
+  pref: {fileID: 8197045072949321114, guid: 651b54596dff3414aa9c61894878c1e2, type: 3}
