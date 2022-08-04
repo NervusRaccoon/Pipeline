@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public List<TileData> tileList;
+    //public List<TileData> tileList;
     private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
     public Transform board;
     private List<GameObject> startTile = new List<GameObject>();

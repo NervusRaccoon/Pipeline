@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnBoard : MonoBehaviour
 {
     public LevelData level;
+    public PipesList pipesList;
     public GameObject empty;
     public Transform pipes;
     //public Transform levelTransform;
@@ -16,11 +17,6 @@ public class SpawnBoard : MonoBehaviour
     private void Start()
     {
         board = this.transform;
-        /*Transform levelTransform = level.content.transform;
-        foreach(Transform child in levelTransform)
-        {
-            Instantiate(child.gameObject, child.position, child.rotation, pipes);
-        }*/
         SpawnMap();
         SpawnPipes();
         Randomize();
@@ -60,13 +56,38 @@ public class SpawnBoard : MonoBehaviour
 
     private void SpawnPipes()
     {
-        foreach(TilePos pipe in level.content)
+        int xSize = level.sizeX;
+        int ySize = level.sizeY;
+        GameObject[,] tileArr = new GameObject[xSize, ySize];
+        float xPos = transform.position.x;
+        float yPos = transform.position.y;
+        Vector2 tileSize = empty.GetComponent<SpriteRenderer>().bounds.size;
+        int count = 0;
+
+        for (int y = ySize-1; y >= 0; y--)
         {
-            GameObject newTile = Instantiate(pipe.tile.pref, Vector3.zero, Quaternion.identity, pipes);
-            newTile.name = pipe.tile.name;
-            newTile.transform.Rotate(0, 0, pipe.rotZ);
-            newTile.transform.localPosition = pipe.pos;
-        }            
+            for (int x = 0; x < xSize; x++)
+            {
+                GameObject pref = null;
+                foreach(PipeData pipe in pipesList.list)
+                {
+                    if (pipe.id == level.content[count])
+                    {
+                        count++;
+                        pref = pipe.pref;
+                        pref.name = pipe.id;
+                        pref.transform.rotation = Quaternion.Euler(0, 0, pipe.rotZ);
+                        break;
+                    }
+                }
+                if (pref != null)
+                {
+                    GameObject newTile = Instantiate(pref, transform.position, pref.transform.rotation, pipes);
+                    newTile.transform.position = new Vector3(xPos + (tileSize.x*x), yPos + (tileSize.y*y), 0);
+                    newTile.name = pref.name;
+                }
+            }            
+        }      
     }
 
 }

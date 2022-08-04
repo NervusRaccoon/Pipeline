@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6259339340194177487}
   - component: {fileID: 124977485508161866}
   m_Layer: 0
-  m_Name: TilePref
+  m_Name: EmptyPref
   m_TagString: Empty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2412127136588571553}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 4.409618}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -3087928711210884387, guid: 3d5c3ef31f86b1c47aeda2813a790c1f, type: 3}
+  m_Sprite: {fileID: -1449479793752073591, guid: dffc9f3ccca1c3649862645fe15b6c03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

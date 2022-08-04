@@ -12,40 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfc1d9cb4aec724e88385ac8d859bac, type: 3}
   m_Name: Level0
   m_EditorClassIdentifier: 
-  name: Level0
-  sizeX: 5
-  sizeY: 5
+  id: level0
+  sizeX: 4
+  sizeY: 4
   content:
-  - pos: {x: 1, y: 0}
-    rotZ: -270
-    tile: {fileID: 11400000, guid: 507897b127e4d034787963a3294bd1ab, type: 2}
-  - pos: {x: 1, y: 1}
-    rotZ: -90
-    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
-  - pos: {x: 2, y: 1}
-    rotZ: 0
-    tile: {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
-  - pos: {x: 3, y: 1}
-    rotZ: -270
-    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
-  - pos: {x: 1, y: 2}
-    rotZ: 0
-    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
-  - pos: {x: 2, y: 2}
-    rotZ: 0
-    tile: {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
-  - pos: {x: 3, y: 2}
-    rotZ: -180
-    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
-  - pos: {x: 1, y: 3}
-    rotZ: -90
-    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
-  - pos: {x: 2, y: 3}
-    rotZ: 0
-    tile: {fileID: 11400000, guid: 499ed7e28d5fe37449a635352b981eab, type: 2}
-  - pos: {x: 3, y: 3}
-    rotZ: -270
-    tile: {fileID: 11400000, guid: 09e79fa218ef9294ba12b8d55d668230, type: 2}
-  - pos: {x: 3, y: 4}
-    rotZ: -90
-    tile: {fileID: 11400000, guid: a09c248539594284380dad1538720c0e, type: 2}
+  - borderAngle90
+  - borderTubeIncoming90
+  - border180
+  - borderAngle180
+  - border90
+  - tubeAngle0
+  - tubeAngle180
+  - border270
+  - border90
+  - empty
+  - tubeFlat90
+  - border270
+  - borderAngle0
+  - border0
+  - borderTubeOutgoing270
+  - borderAngle270
