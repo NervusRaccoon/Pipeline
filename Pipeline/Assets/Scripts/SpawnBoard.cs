@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ArrayCell
+{
+    public int id;
+    public string tag;
+    public Vector2 firstNeighboringCell;
+    public Vector2 secondNeighboringCell;
+}
+
 public class SpawnBoard : MonoBehaviour
 {
     public LevelData level;
     public PipesList pipesList;
     public GameObject empty;
     public Transform pipes;
-    //public Transform levelTransform;
     private Transform board;
     private Quaternion[] dir = new Quaternion[] {Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -90), Quaternion.Euler(0, 0, -180), Quaternion.Euler(0, 0, -270)};
-    private const string flatTag = "Flat";
-    private const string angleTag = "Angle";
+    private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
+    public static ArrayCell[,] idCellBoard = new ArrayCell[10,10];
+
+    public static System.Action boardSpawned;
+
 
     private void Start()
     {
@@ -25,15 +35,15 @@ public class SpawnBoard : MonoBehaviour
     private void Randomize()
     {
         foreach(Transform child in pipes)
-            if (child.gameObject.tag == angleTag || child.gameObject.tag == flatTag)
+            if (child.gameObject.tag == tags[2] || child.gameObject.tag == tags[3])
                 child.rotation = dir[Random.Range(0, dir.Length-1)];
+        boardSpawned?.Invoke();
     }
 
     private void SpawnMap()
     {
         int xSize = level.sizeX;
         int ySize = level.sizeY;
-        GameObject[,] tileArr = new GameObject[xSize, ySize];
         float xPos = transform.position.x;
         float yPos = transform.position.y;
         Vector2 tileSize = empty.GetComponent<SpriteRenderer>().bounds.size;
@@ -48,17 +58,16 @@ public class SpawnBoard : MonoBehaviour
                 newTile.transform.parent = transform;
                 newTile.name = count.ToString();
                 count++;
-
-                tileArr[x, y] = newTile;
             }            
         }
     }
 
-    private void SpawnPipes()
+    public void SpawnPipes()
     {
         int xSize = level.sizeX;
         int ySize = level.sizeY;
-        GameObject[,] tileArr = new GameObject[xSize, ySize];
+        idCellBoard = new ArrayCell[xSize, ySize];
+
         float xPos = transform.position.x;
         float yPos = transform.position.y;
         Vector2 tileSize = empty.GetComponent<SpriteRenderer>().bounds.size;
@@ -73,10 +82,10 @@ public class SpawnBoard : MonoBehaviour
                 {
                     if (pipe.id == level.content[count])
                     {
-                        count++;
                         pref = pipe.pref;
                         pref.name = pipe.id;
                         pref.transform.rotation = Quaternion.Euler(0, 0, pipe.rotZ);
+                        count++;
                         break;
                     }
                 }

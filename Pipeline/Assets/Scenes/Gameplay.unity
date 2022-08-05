@@ -296,7 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ed9cc4fe321334684bec682479150c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 1956885802}
+  level: {fileID: 11400000, guid: 9cb7a9a1e09ddce43b9f745a33ba55c7, type: 2}
+  spawnBoard: {fileID: 938118057}
+  pipes: {fileID: 1956885802}
 --- !u!1 &1956885801
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,8 +308,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1956885802}
+  - component: {fileID: 1956885803}
   m_Layer: 0
-  m_Name: Pupes
+  m_Name: Pipes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,3 +330,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1956885803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956885801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0885726809e374c8d1cb1bbb7e6dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: {fileID: 11400000, guid: 9cb7a9a1e09ddce43b9f745a33ba55c7, type: 2}
+  pipes: {fileID: 1956885802}
