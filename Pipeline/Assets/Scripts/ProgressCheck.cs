@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Neighbors
+{
+    public bool active = false;
+    public Vector2Int cellPos;
+    public List<Vector2Int> neighborPosition;
+    public List<int> neighborLink;
+}
+
 public class ProgressCheck : MonoBehaviour
 {
     public LevelData level;
@@ -11,7 +19,9 @@ public class ProgressCheck : MonoBehaviour
     private int[,] mapMatrix;
     private List<Vector2Int> startPosList = new List<Vector2Int>();
     private List<Vector2Int> finishPosList = new List<Vector2Int>();
+    private List<Vector2Int> neighborConstList = new List<Vector2Int>{new Vector2Int(1,0), new Vector2Int(-1,0), new Vector2Int(0,1), new Vector2Int(0,-1)};
     public static bool finish = false;
+    private Neighbors[,] neighborsList;
 
     private void StartCheck()
     {
@@ -19,37 +29,43 @@ public class ProgressCheck : MonoBehaviour
         sizeX = level.sizeX;
         sizeY = level.sizeY;
         mapMatrix = new int[sizeX, sizeY];
+        neighborsList = new Neighbors[sizeX, sizeY];
         int count = 0;
         for (int y = sizeY-1; y >= 0; y--)
             for (int x = 0; x < sizeX; x++)
             {
-                Debug.Log(pipes.childCount);
+                Vector2Int pos = new Vector2Int(x,y);
+                Neighbors currNeihgbors = new Neighbors();
+                currNeihgbors.cellPos = pos;
+                currNeihgbors.neighborPosition = new List<Vector2Int>();
+                foreach (Vector2Int constN in neighborConstList)
+                    currNeihgbors.neighborPosition.Add(constN + pos);
+                currNeihgbors.neighborLink = new List<int>{0,0,0,0};
+                
                 string pipeTag = pipes.GetChild(count).gameObject.tag;
-                if (pipeTag == tags[0] || pipeTag == tags[1]) mapMatrix[x, y] = 3;
-                else if (pipeTag == tags[2] || pipeTag == tags[3]) mapMatrix[x, y] = 1;
-                else mapMatrix[x, y] = -1;
 
-                if (pipeTag == tags[0]) startPosList.Add(new Vector2Int(x,y));
-                if (pipeTag == tags[1]) finishPosList.Add(new Vector2Int(x,y));
+                if (pipeTag == tags[0]) startPosList.Add(pos);
+                if (pipeTag == tags[1]) finishPosList.Add(pos);
+                if (tags.Contains(pipeTag)) currNeihgbors.active = true;
+                neighborsList[x,y] = currNeihgbors;
+
                 count++;
             }
 
-        WriteMartix();
+
         count = 0;
         for (int y = sizeY-1; y >= 0; y--)
             for (int x = 0; x < sizeX; x++)
             {
-                if (mapMatrix[x, y] != -1)
-                {
-                    string pipeTag = pipes.GetChild(count).gameObject.tag;
-                    float rotZ = Mathf.Round(pipes.GetChild(count).eulerAngles.z);
-                    Vector2Int vec = new Vector2Int(x,y);
-                    CellRecalculation(pipeTag, vec, rotZ);       
-                }
+                string pipeTag = pipes.GetChild(count).gameObject.tag;
+                float currRotationZ = Mathf.Round(pipes.GetChild(count).eulerAngles.z);
+                Vector2Int vec = new Vector2Int(x,y);
+                CellRecalculation(pipeTag, vec, currRotationZ, currRotationZ);       
                 count++;
             }
         WriteMartix();
-        CheckWin(null);
+
+        CheckWin(null, 0);
     }
 
     private void OnEnable()
@@ -58,7 +74,7 @@ public class ProgressCheck : MonoBehaviour
         GameController.rotateTube += CheckWin;
     }
 
-    private void CheckWin(GameObject tile)
+    private void CheckWin(GameObject tile, float prevRotationZ)
     {
         if (tile != null)
         {
@@ -72,75 +88,72 @@ public class ProgressCheck : MonoBehaviour
                     count++;
                 }
             CleanTubes();
-            CellRecalculation(tile.tag, vec, Mathf.Round(tile.transform.eulerAngles.z));
-            WriteMartix();
+            CellRecalculation(tile.tag, vec, Mathf.Round(tile.transform.eulerAngles.z), Mathf.Round(prevRotationZ));
+            foreach(Vector2Int startPos in startPosList)
+                WaterFlow(startPos, startPos);
         }
-        foreach(Vector2Int startPos in startPosList)
-            WaterFlow(startPos, startPos);
+        WriteMartix();
     }
 
-    private void CellRecalculation(string tag, Vector2Int pos, float rotZ)
+    private void CellRecalculation(string tag, Vector2Int pos, float currRotationZ, float prevRotationZ)
+    { 
+        if (neighborsList[pos.x, pos.y].active)
+            if (tag == tags[0] || tag == tags[1])
+            {
+                if (currRotationZ == 0) neighborsList[pos.x, pos.y].neighborLink[0] = 1;
+                if (currRotationZ == -90 || currRotationZ == 270) neighborsList[pos.x, pos.y].neighborLink[3] = 1;
+                if (currRotationZ == -180 || currRotationZ == 180) neighborsList[pos.x, pos.y].neighborLink[1] = 1;
+                if (currRotationZ == -270 || currRotationZ == 90) neighborsList[pos.x, pos.y].neighborLink[2] = 1;
+            }
+            else if (tag == tags[3] || tag == tags[2])
+            {
+                AngleConversion(tag, currRotationZ, 1, pos);
+                Debug.Log(currRotationZ + " ? " + prevRotationZ);
+                if (currRotationZ != prevRotationZ)
+                {
+                    Debug.Log("Не равны");
+                    AngleConversion(tag, prevRotationZ, -1, pos); 
+                }
+            }
+    }
+
+    private void AngleConversion(string tag, float angle, int count, Vector2Int pos)
     {
-        int cellCount = 1;
-        if (tag == tags[0] || tag == tags[1])
+        if (tag == tags[3])
         {
-            cellCount = 3;
-            if (rotZ == 0) cellCount += 1;
-            if (rotZ == -90 || rotZ == 270) cellCount += 1;
-            if (rotZ == -180 || rotZ == 180) cellCount += 1;
-            if (rotZ == -270 || rotZ == 90) cellCount += 1;
-        }
-        else if (tag == tags[3])
+            if (angle == 0)
+            {
+                neighborsList[pos.x, pos.y].neighborLink[0] += count;
+                neighborsList[pos.x, pos.y].neighborLink[2] += count;
+            }
+            if (angle == -90 || angle == 270) 
+            {
+                neighborsList[pos.x, pos.y].neighborLink[0] += count;
+                neighborsList[pos.x, pos.y].neighborLink[3] += count;
+            }
+            if (angle == 180 || angle == -180)
+            {
+                neighborsList[pos.x, pos.y].neighborLink[1] += count;
+                neighborsList[pos.x, pos.y].neighborLink[3] += count;
+            }
+            if (angle == -270 || angle == 90)
+            {
+                neighborsList[pos.x, pos.y].neighborLink[1] += count;
+                neighborsList[pos.x, pos.y].neighborLink[2] += count;
+            } 
+        } else if (tag == tags[2])
         {
-            if (rotZ == 0)
+            if (angle == 0 || angle == 180 || angle == -180)
             {
-                if (mapMatrix[pos.x, pos.y+1] != -1)
-                    cellCount += 1;
-                if (mapMatrix[pos.x+1, pos.y] != -1)
-                    cellCount += 1;
+                neighborsList[pos.x, pos.y].neighborLink[0] += count;
+                neighborsList[pos.x, pos.y].neighborLink[1] += count;
             }
-            if (rotZ == -90 || rotZ == 270) 
+            if (angle == -270 || angle == 270 || angle == 90 || angle == -90)
             {
-                if (mapMatrix[pos.x, pos.y+1] != -1)
-                    cellCount += 1;
-                if (mapMatrix[pos.x, pos.y-1] != -1)
-                    cellCount += 1;
+                neighborsList[pos.x, pos.y].neighborLink[2] += count;
+                neighborsList[pos.x, pos.y].neighborLink[3] += count;
             }
-            if (rotZ == 180 || rotZ == -180)
-            {
-                if (mapMatrix[pos.x, pos.y-1] != -1)
-                    cellCount += 1;
-                if (mapMatrix[pos.x-1, pos.y] != -1)
-                    cellCount += 1;
-            }
-            if (rotZ == -270 || rotZ == 90)
-            {
-                if (mapMatrix[pos.x, pos.y+1] != -1)
-                    cellCount += 1;
-                if (mapMatrix[pos.x-1, pos.y] != -1)
-                    cellCount += 1;
-            }   
-        } 
-        else if (tag == tags[2])
-        {
-            if (rotZ == 0 || rotZ == 180 || rotZ == -180)
-            {
-                if (mapMatrix[pos.x-1, pos.y] != -1)
-                    cellCount += 1;
-                if (mapMatrix[pos.x+1, pos.y] != -1)
-                    cellCount += 1;
-            }
-            if (rotZ == -270 || rotZ == 270 || rotZ == 90 || rotZ == -90)
-            {
-                if (mapMatrix[pos.x, pos.y-1] != -1)
-                    cellCount += 1;
-                if (mapMatrix[pos.x, pos.y+1] != -1)
-                    cellCount += 1;
-            }          
-        }
-        if ((tag == tags[2] || tag == tags[3]) && cellCount < 1)
-            cellCount = 1;
-        mapMatrix[pos.x, pos.y] = cellCount;
+        }  
     }
 
     private void WriteMartix()
@@ -149,9 +162,17 @@ public class ProgressCheck : MonoBehaviour
         for (int y = sizeY-1; y >= 0; y--)
         {
             for (int x = 0; x < sizeX; x++)
-                str = str + mapMatrix[x, y] + " "; 
-            str += "\n";
-        } 
+            {
+                if (neighborsList[x,y].active)
+                {
+                    str = str + neighborsList[x,y].cellPos.ToString() + " : ";
+                    
+                    for (int z = 0; z < 4; z++)
+                        str = str + neighborsList[x,y].neighborLink[z].ToString() + " "; 
+                    str += "\n";
+                }
+            }
+        }
         Debug.Log(str);
     }
 
@@ -163,60 +184,42 @@ public class ProgressCheck : MonoBehaviour
     }
 
     private void WaterFlow(Vector2Int currPos, Vector2Int prevPos)
-    {
-        int count = 0;
-        for (int j = sizeY-1; j >= 0; j--)
+    {      
+        int nextID = -1;
+        int prevID = -1;
+        Neighbors cell = neighborsList[currPos.x, currPos.y];
+        if (cell.active)
         {
-            for (int i = 0; i < sizeX; i++)
+            int count = 0;
+            for (int y = sizeY-1; y >= 0; y--)
+                for (int x = 0; x < sizeX; x++)
+                {
+                    if (prevPos.x == x && prevPos.y == y)
+                        pipes.GetChild(count).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                    count++;
+                }
+            for (int i = 0; i < 4; i++)
             {
-                if (i == currPos.x && j == currPos.y)
-                    pipes.GetChild(count).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-                count++;
+                if (cell.neighborLink[i] == 1)
+                    if (cell.neighborPosition[i] != prevPos)
+                        nextID = i;
+                    else
+                        prevID = i;
             }
-                
-        } 
-
-        int x = currPos.x;
-        int y = currPos.y;
-
-        if (mapMatrix[x, y] == 4) 
-        {
-            if (startPosList.Contains(currPos)) //start
+            if (currPos == prevPos) WaterFlow(cell.neighborPosition[nextID], currPos);
+            if (prevID != -1 && nextID != -1) WaterFlow(cell.neighborPosition[nextID], currPos);
+            else if (prevID != -1 && nextID == -1) 
             {
-                if (x == 0 && mapMatrix[x-1, y] == 3)
-                    WaterFlow(new Vector2Int(x+1, y), currPos);
-                if (x == sizeX-1 && mapMatrix[x-1, y] == 3)
-                    WaterFlow(new Vector2Int(x-1, y), currPos);
-                if (y == 0 && mapMatrix[x, y+1] == 3)
-                    WaterFlow(new Vector2Int(x, y+1), currPos);
-                if (y == sizeY-1 && mapMatrix[x, y-1] == 3)
-                    WaterFlow(new Vector2Int(x, y-1), currPos);
-            }
-            if (finishPosList.Contains(currPos)) //finish
-            {
+                count = 0;
+                for (int y = sizeY-1; y >= 0; y--)
+                    for (int x = 0; x < sizeX; x++)
+                    {
+                        if (currPos.x == x && currPos.y == y)
+                            pipes.GetChild(count).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                        count++;
+                    }
                 finish = true;
-                Debug.Log("finish");
             }
-        }
-        else if (mapMatrix[x, y] == 3) 
-        {
-            Vector2Int minusX = new Vector2Int(x-1, y);
-            Vector2Int minusY = new Vector2Int(x, y-1);
-            Vector2Int plusX = new Vector2Int(x+1, y);
-            Vector2Int plusY = new Vector2Int(x, y+1);
-            if ((mapMatrix[x-1, y] == 3 && minusX != prevPos) || 
-                (mapMatrix[x-1, y] == 4 && finishPosList.Contains(minusX)))
-                WaterFlow(new Vector2Int(x-1, y), currPos);
-            if ((mapMatrix[x, y+1] == 3 && plusY != prevPos) || 
-                (mapMatrix[x, y+1] == 4 && finishPosList.Contains(plusY)))
-                WaterFlow(new Vector2Int(x, y+1), currPos);
-            if ((mapMatrix[x+1, y] == 3 && plusX != prevPos) || 
-                (mapMatrix[x+1, y] == 4 && finishPosList.Contains(plusX)))
-                WaterFlow(new Vector2Int(x+1, y), currPos);
-            if ((mapMatrix[x, y-1] == 3 && minusY != prevPos) || 
-                (mapMatrix[x, y-1] == 4 && finishPosList.Contains(minusY)))
-                WaterFlow(new Vector2Int(x, y-1), currPos);
-        }
-        
+        }    
     }
 }

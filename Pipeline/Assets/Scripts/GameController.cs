@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static System.Action<GameObject> rotateTube;
+    public static System.Action<GameObject, float> rotateTube;
     private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
 
     void Update()
@@ -17,8 +17,9 @@ public class GameController : MonoBehaviour
                 GameObject tile = ray.collider.gameObject;
                 if (tile.tag == tags[2] || tile.tag == tags[3])
                 {
+                    float prevRotation = tile.transform.eulerAngles.z; 
                     tile.transform.Rotate(0, 0, -90);
-                    rotateTube?.Invoke(tile);
+                    rotateTube?.Invoke(tile, prevRotation);
                 }
             }
         }

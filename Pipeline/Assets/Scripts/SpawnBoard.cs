@@ -2,31 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrayCell
-{
-    public int id;
-    public string tag;
-    public Vector2 firstNeighboringCell;
-    public Vector2 secondNeighboringCell;
-}
-
 public class SpawnBoard : MonoBehaviour
 {
     public LevelData level;
     public PipesList pipesList;
     public GameObject empty;
     public Transform pipes;
-    private Transform board;
     private Quaternion[] dir = new Quaternion[] {Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -90), Quaternion.Euler(0, 0, -180), Quaternion.Euler(0, 0, -270)};
     private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
-    public static ArrayCell[,] idCellBoard = new ArrayCell[10,10];
 
     public static System.Action boardSpawned;
 
 
     private void Start()
     {
-        board = this.transform;
         SpawnMap();
         SpawnPipes();
         Randomize();
@@ -66,7 +55,6 @@ public class SpawnBoard : MonoBehaviour
     {
         int xSize = level.sizeX;
         int ySize = level.sizeY;
-        idCellBoard = new ArrayCell[xSize, ySize];
 
         float xPos = transform.position.x;
         float yPos = transform.position.y;
