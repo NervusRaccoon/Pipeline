@@ -12,23 +12,23 @@ public class Neighbors
 
 public class ProgressCheck : MonoBehaviour
 {
-    public LevelData level;
     private int sizeX, sizeY;
-    public Transform pipes;
+    private Transform pipes;
     private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
-    private int[,] mapMatrix;
     private List<Vector2Int> startPosList = new List<Vector2Int>();
-    private List<Vector2Int> finishPosList = new List<Vector2Int>();
     private List<Vector2Int> neighborConstList = new List<Vector2Int>{new Vector2Int(1,0), new Vector2Int(-1,0), new Vector2Int(0,1), new Vector2Int(0,-1)};
-    public static bool finish = false;
-    private Neighbors[,] neighborsList;
+    private Neighbors[,] neighborsList = new Neighbors[10, 10];
 
-    private void StartCheck()
+    public static bool winDiscovered = false;
+    public SceneController sceneController;
+
+    public void StartCheck(int levelSizeX, int levelSizeY)
     {
-        //pipes = this.transform;
-        sizeX = level.sizeX;
-        sizeY = level.sizeY;
-        mapMatrix = new int[sizeX, sizeY];
+        sizeX = levelSizeX;
+        sizeY = levelSizeY;
+        Debug.Log(sizeX);
+        Debug.Log(sizeY);
+        CleanProgressCheck();        
         neighborsList = new Neighbors[sizeX, sizeY];
         int count = 0;
         for (int y = sizeY-1; y >= 0; y--)
@@ -43,10 +43,11 @@ public class ProgressCheck : MonoBehaviour
                 currNeihgbors.neighborLink = new List<int>{0,0,0,0};
                 
                 string pipeTag = pipes.GetChild(count).gameObject.tag;
-
+                
                 if (pipeTag == tags[0]) startPosList.Add(pos);
-                if (pipeTag == tags[1]) finishPosList.Add(pos);
-                if (tags.Contains(pipeTag)) currNeihgbors.active = true;
+                if (tags.Contains(pipeTag)) 
+                {currNeihgbors.active = true;
+                Debug.Log("Active cell: " + pipeTag + " pos " + pos.x + " " + pos.y);}
                 neighborsList[x,y] = currNeihgbors;
 
                 count++;
@@ -64,17 +65,18 @@ public class ProgressCheck : MonoBehaviour
                 count++;
             }
         WriteMartix();
-
         CheckWin(null, 0);
     }
 
-    private void OnEnable()
+    private void CleanProgressCheck()
     {
-        SpawnBoard.boardSpawned += StartCheck;
-        GameController.rotateTube += CheckWin;
+        pipes = this.transform;
+        Debug.Log(pipes.childCount);
+        if (neighborsList.Length != 0) System.Array.Clear(neighborsList, 0, neighborsList.Length);
+        if (startPosList.Count != 0) startPosList.Clear();
     }
 
-    private void CheckWin(GameObject tile, float prevRotationZ)
+    public void CheckWin(GameObject tile, float prevRotationZ)
     {
         if (tile != null)
         {
@@ -108,12 +110,8 @@ public class ProgressCheck : MonoBehaviour
             else if (tag == tags[3] || tag == tags[2])
             {
                 AngleConversion(tag, currRotationZ, 1, pos);
-                Debug.Log(currRotationZ + " ? " + prevRotationZ);
                 if (currRotationZ != prevRotationZ)
-                {
-                    Debug.Log("Не равны");
                     AngleConversion(tag, prevRotationZ, -1, pos); 
-                }
             }
     }
 
@@ -218,7 +216,10 @@ public class ProgressCheck : MonoBehaviour
                             pipes.GetChild(count).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
                         count++;
                     }
-                finish = true;
+                int levelNumber = PlayerPrefs.GetInt("levelNumber");
+                PlayerPrefs.SetInt("levelNumber", levelNumber+1);  
+                winDiscovered = true;
+                sceneController.WinPanelOpened();
             }
         }    
     }

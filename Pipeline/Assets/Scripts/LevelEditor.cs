@@ -20,7 +20,8 @@ public class LevelEditor : EditorWindow
 
     void OnGUI()
     {;
-        GUILayout.Label("Field size ", EditorStyles.boldLabel);
+        if (GUILayout.Button("Reset")) PlayerPrefs.SetInt("levelNumber", 0);
+        /*GUILayout.Label("Field size ", EditorStyles.boldLabel);
         sizeX = EditorGUILayout.TextField("X: ", sizeX);
         sizeY = EditorGUILayout.TextField("Y: ", sizeY);
         EditorGUILayout.BeginHorizontal();
@@ -33,13 +34,13 @@ public class LevelEditor : EditorWindow
             int y = Int32.Parse(sizeY);
 
             Resize(x, y);
-        }
+        }*/
 
     }
 
     private void Resize(int sizeX, int sizeY)
     {
-        Debug.Log("where");
+        Debug.Log("Resize");
        /* GameObject[,] tileArr = new GameObject[sizeX, sizeY];
         float xPos = empty.transform.position.x;
         float yPos = empty.transform.position.y;

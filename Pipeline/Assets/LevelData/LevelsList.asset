@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbfc1d9cb4aec724e88385ac8d859bac, type: 3}
+  m_Name: LevelsList
+  m_EditorClassIdentifier: 
+  list:
+  - id: 0
+    sizeX: 4
+    sizeY: 4
+    content:
+    - borderAngle90
+    - borderTubeIncoming90
+    - border180
+    - borderAngle180
+    - border90
+    - tubeAngle0
+    - tubeAngle180
+    - border270
+    - border90
+    - empty
+    - tubeFlat90
+    - border270
+    - borderAngle0
+    - border0
+    - borderTubeOutgoing270
+    - borderAngle270
+  - id: 1
+    sizeX: 5
+    sizeY: 5
+    content:
+    - borderAngle90
+    - border180
+    - border180
+    - borderTubeIncoming90
+    - borderAngle180
+    - border90
+    - tubeAngle90
+    - tubeFlat0
+    - tubeAngle270
+    - border270
+    - border90
+    - tubeFlat90
+    - tubeFlat90
+    - tubeFlat90
+    - border270
+    - border90
+    - tubeAngle90
+    - tubeFlat0
+    - tubeFlat0
+    - borderTubeOutgoing180
+    - borderAngle0
+    - border0
+    - border0
+    - border0
+    - borderAngle270

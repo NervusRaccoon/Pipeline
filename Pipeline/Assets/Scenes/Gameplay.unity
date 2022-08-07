@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 120979014}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1563011527}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: CloseWinPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &120979014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,10 +560,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38c4d7f0d149d64b92f31d78508962f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: dc3d3c06dd5ae3943bea12a2356cb8ff, type: 2}
+  levelsDeta: {fileID: 11400000, guid: c9fc339badd0eaf43846818ca348ceef, type: 2}
+  levelNumber: 0
   pipesList: {fileID: 11400000, guid: be2d9c0091a4aba4a89a4befc1d41433, type: 2}
   empty: {fileID: 2412127136588571553, guid: b2c7530351e95ec4a8eee508541a9695, type: 3}
   pipes: {fileID: 1956885802}
+  progressCheck: {fileID: 1956885803}
 --- !u!1 &970709313
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1121430858
 RectTransform:
   m_ObjectHideFlags: 0
@@ -706,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1563011525}
   - component: {fileID: 1563011526}
+  - component: {fileID: 1563011527}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -739,6 +754,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ed9cc4fe321334684bec682479150c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progressCheck: {fileID: 1956885803}
+--- !u!114 &1563011527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563011524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75617efbfd4e16f47a5162fb9c27986e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winPanel: {fileID: 1121430857}
+  spawnBoard: {fileID: 938118057}
 --- !u!1 &1956885801
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,8 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0885726809e374c8d1cb1bbb7e6dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: dc3d3c06dd5ae3943bea12a2356cb8ff, type: 2}
-  pipes: {fileID: 1956885802}
+  sceneController: {fileID: 1563011527}
 --- !u!1 &2025781054
 GameObject:
   m_ObjectHideFlags: 0
