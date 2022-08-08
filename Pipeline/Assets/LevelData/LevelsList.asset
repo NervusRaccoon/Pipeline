@@ -38,7 +38,7 @@ MonoBehaviour:
     sizeY: 5
     content:
     - borderAngle90
-    - border180
+    - borderTubeIncoming90
     - border180
     - borderTubeIncoming90
     - borderAngle180
@@ -53,7 +53,7 @@ MonoBehaviour:
     - tubeFlat90
     - border270
     - border90
-    - tubeAngle90
+    - tubeAngle0
     - tubeFlat0
     - tubeFlat0
     - borderTubeOutgoing180

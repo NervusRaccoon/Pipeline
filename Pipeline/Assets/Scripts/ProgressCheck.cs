@@ -98,7 +98,7 @@ public class ProgressCheck : MonoBehaviour
     }
 
     private void CellRecalculation(string tag, Vector2Int pos, float currRotationZ, float prevRotationZ)
-    { 
+    {
         if (neighborsList[pos.x, pos.y].active)
             if (tag == tags[0] || tag == tags[1])
             {
@@ -124,17 +124,17 @@ public class ProgressCheck : MonoBehaviour
                 neighborsList[pos.x, pos.y].neighborLink[0] += count;
                 neighborsList[pos.x, pos.y].neighborLink[2] += count;
             }
-            if (angle == -90 || angle == 270) 
+            else if (angle == -90 || angle == 270) 
             {
                 neighborsList[pos.x, pos.y].neighborLink[0] += count;
                 neighborsList[pos.x, pos.y].neighborLink[3] += count;
             }
-            if (angle == 180 || angle == -180)
+            else if (angle == 180 || angle == -180)
             {
                 neighborsList[pos.x, pos.y].neighborLink[1] += count;
                 neighborsList[pos.x, pos.y].neighborLink[3] += count;
             }
-            if (angle == -270 || angle == 90)
+            else if (angle == -270 || angle == 90)
             {
                 neighborsList[pos.x, pos.y].neighborLink[1] += count;
                 neighborsList[pos.x, pos.y].neighborLink[2] += count;
@@ -146,7 +146,7 @@ public class ProgressCheck : MonoBehaviour
                 neighborsList[pos.x, pos.y].neighborLink[0] += count;
                 neighborsList[pos.x, pos.y].neighborLink[1] += count;
             }
-            if (angle == -270 || angle == 270 || angle == 90 || angle == -90)
+            else if (angle == -270 || angle == 270 || angle == 90 || angle == -90)
             {
                 neighborsList[pos.x, pos.y].neighborLink[2] += count;
                 neighborsList[pos.x, pos.y].neighborLink[3] += count;
@@ -206,7 +206,7 @@ public class ProgressCheck : MonoBehaviour
             }
             if (currPos == prevPos) WaterFlow(cell.neighborPosition[nextID], currPos);
             if (prevID != -1 && nextID != -1) WaterFlow(cell.neighborPosition[nextID], currPos);
-            else if (prevID != -1 && nextID == -1) 
+            else if (prevID != -1 && nextID == -1 && !startPosList.Contains(currPos)) 
             {
                 count = 0;
                 for (int y = sizeY-1; y >= 0; y--)

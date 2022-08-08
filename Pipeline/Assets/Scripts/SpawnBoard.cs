@@ -71,6 +71,8 @@ public class SpawnBoard : MonoBehaviour
                 count++;
             }            
         }
+        board.position = new Vector3((-1)*tileSize.x*xSize/2 + tileSize.x/2, (-1)*tileSize.y*ySize/2 + tileSize.y/2, 0);
+        pipes.position = new Vector3((-1)*tileSize.x*xSize/2 + tileSize.x/2, (-1)*tileSize.y*ySize/2 + tileSize.y/2, 0);
     }
 
     public void SpawnPipes()
