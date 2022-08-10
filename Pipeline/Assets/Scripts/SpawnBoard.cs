@@ -26,8 +26,8 @@ public class SpawnBoard : MonoBehaviour
         levelNumber = PlayerPrefs.GetInt("levelNumber");
         if (levelNumber == null)
         {
-            PlayerPrefs.SetInt("levelNumber", 0);
-            levelNumber = 0;
+            PlayerPrefs.SetInt("levelNumber", 1);
+            levelNumber = 1;
         }
         if (levelNumber > levelsDeta.list.Count-1)
             levelNumber = levelsDeta.list.Count-1;
@@ -45,7 +45,7 @@ public class SpawnBoard : MonoBehaviour
         while (pipes.childCount > 0) DestroyImmediate(pipes.GetChild(0).gameObject);
     }
 
-    private void Randomize()
+    public void Randomize()
     {
         foreach(Transform child in pipes)
             if (child.gameObject.tag == tags[2] || child.gameObject.tag == tags[3])

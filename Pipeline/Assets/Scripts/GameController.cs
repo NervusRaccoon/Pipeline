@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public ProgressCheck progressCheck;
-    private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
-    private bool stop = false; 
+    private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"}; 
 
     void Update()
     {

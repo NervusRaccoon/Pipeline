@@ -20,21 +20,20 @@ public class LevelEditor : EditorWindow
 
     void OnGUI()
     {;
-        if (GUILayout.Button("Reset")) PlayerPrefs.SetInt("levelNumber", 0);
-        /*GUILayout.Label("Field size ", EditorStyles.boldLabel);
+        GUILayout.Label("Field size ", EditorStyles.boldLabel);
         sizeX = EditorGUILayout.TextField("X: ", sizeX);
         sizeY = EditorGUILayout.TextField("Y: ", sizeY);
-        EditorGUILayout.BeginHorizontal();
+        /*EditorGUILayout.BeginHorizontal();
         //empty = (Sprite)EditorGUILayout.ObjectField(empty, typeof(Sprite), false, GUILayout.Height(EditorGUIUtility.singleLineHeight));
-        empty = (Sprite)EditorGUILayout.ObjectField(empty, typeof(Sprite), allowSceneObjects: true);
-        EditorGUILayout.EndHorizontal();
+        //empty = (Sprite)EditorGUILayout.ObjectField(empty, typeof(Sprite), allowSceneObjects: true);
+        EditorGUILayout.EndHorizontal();*/
         if (GUILayout.Button("Resize"))
         {
             int x = Int32.Parse(sizeX);
             int y = Int32.Parse(sizeY);
 
             Resize(x, y);
-        }*/
+        }
 
     }
 

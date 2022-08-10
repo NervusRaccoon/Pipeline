@@ -28,7 +28,7 @@ public class SceneController : MonoBehaviour
     {
         timerText.text = "00:00";
         timeInSeconds = 0;
-        gamePanelLevelTextName.text = levelText + spawnBoard.levelNumber.ToString();
+        gamePanelLevelTextName.text = levelText + (PlayerPrefs.GetInt("levelNumber")+1).ToString();
         winPanel.SetActive(false);
     }
 
@@ -51,13 +51,14 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    public void WinPanelOpened()
+    public IEnumerator WinPanelOpened()
     {
+        yield return new WaitForSeconds(1f);
         winPanel.SetActive(true);
         foreach(Transform child in winPanel.transform)
         {
             if (child.gameObject.name == levelTextName)
-                child.gameObject.GetComponent<Text>().text = levelText + spawnBoard.levelNumber.ToString();
+                child.gameObject.GetComponent<Text>().text = levelText + PlayerPrefs.GetInt("levelNumber").ToString();
             else if (child.gameObject.name == timerStoppedName)
                 child.gameObject.GetComponent<Text>().text = timerText.text;
         }
@@ -65,15 +66,13 @@ public class SceneController : MonoBehaviour
 
     public void CloseWinPanel()
     {
-        winPanel.SetActive(false);
-        spawnBoard.StartSpawnBoard();
         ProgressCheck.winDiscovered = false;
+        spawnBoard.StartSpawnBoard();
         StartLevel();
     }
 
-    public void PressedHelpButton(int count)
+    public void PressedHelpButton()
     {
-        count++;
         int randomID = Random.Range(0, pipesParent.childCount-1);
         GameObject randomPipe = pipesParent.GetChild(randomID).gameObject;
         bool rotated = false;
@@ -99,13 +98,10 @@ public class SceneController : MonoBehaviour
                     {
                         randomPipe.transform.rotation = Quaternion.Euler(0, 0, pipe.rotZ);
                         pipesParent.gameObject.GetComponent<ProgressCheck>().CheckWin(randomPipe, prevRotation);
-                    }
-                    Debug.Log(prevRotation);                    
+                    }                 
                 }
         if (!rotated)
-            PressedHelpButton(count);
-        /*if (count <= 5)
-            Debug.Log("Тут нечего поворачивать"); */
+            PressedHelpButton();
     }
 
 }

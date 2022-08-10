@@ -17,48 +17,77 @@ MonoBehaviour:
     sizeX: 4
     sizeY: 4
     content:
-    - borderAngle90
-    - borderTubeIncoming90
-    - border180
-    - borderAngle180
-    - border90
+    - borderAngle270
+    - borderTubeIncoming270
+    - border0
+    - borderAngle0
+    - border270
     - tubeAngle0
     - tubeAngle180
-    - border270
     - border90
+    - border270
     - empty
     - tubeFlat90
-    - border270
-    - borderAngle0
-    - border0
-    - borderTubeOutgoing270
-    - borderAngle270
+    - border90
+    - borderAngle180
+    - border180
+    - borderTubeOutgoing90
+    - borderAngle90
   - id: 1
     sizeX: 5
     sizeY: 5
     content:
-    - borderAngle90
-    - borderTubeIncoming90
-    - border180
-    - borderTubeIncoming90
-    - borderAngle180
-    - border90
+    - borderAngle270
+    - border0
+    - border0
+    - borderTubeIncoming270
+    - borderAngle0
+    - border270
     - tubeAngle90
     - tubeFlat0
     - tubeAngle270
-    - border270
     - border90
-    - tubeFlat90
-    - tubeFlat90
-    - tubeFlat90
     - border270
+    - tubeFlat90
+    - tubeFlat90
+    - tubeFlat90
     - border90
+    - border270
     - tubeAngle0
     - tubeFlat0
     - tubeFlat0
-    - borderTubeOutgoing180
-    - borderAngle0
-    - border0
-    - border0
-    - border0
+    - borderTubeOutgoing0
+    - borderAngle180
+    - border180
+    - border180
+    - border180
+    - borderAngle90
+  - id: 2
+    sizeX: 5
+    sizeY: 5
+    content:
     - borderAngle270
+    - borderTubeIncoming270
+    - border0
+    - borderTubeIncoming270
+    - borderAngle0
+    - border270
+    - tubeFlat90
+    - tubeAngle90
+    - tubeAngle270
+    - border90
+    - border270
+    - tubeFlat90
+    - tubeFlat90
+    - tubeFlat90
+    - border90
+    - borderTubeOutgoing180
+    - tubeAngle270
+    - tubeAngle0
+    - tubeFlat0
+    - borderTubeOutgoing0
+    - borderAngle180
+    - border180
+    - border180
+    - border180
+    - borderAngle90
