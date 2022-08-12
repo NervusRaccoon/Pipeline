@@ -3,7 +3,11 @@ guid: 2f315b293bb771e4f92f520fc9ae9c8b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - savedLevelList: {fileID: 11400000, guid: c9fc339badd0eaf43846818ca348ceef, type: 2}
+  - pipes: {fileID: 11400000, guid: be2d9c0091a4aba4a89a4befc1d41433, type: 2}
+  - empty: {fileID: 2412127136588571553, guid: b2c7530351e95ec4a8eee508541a9695, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

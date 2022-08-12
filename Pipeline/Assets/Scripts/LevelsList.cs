@@ -15,4 +15,9 @@ public class LevelData
 public class LevelsList : ScriptableObject 
 {
     public List<LevelData> list;
+
+    public void AddLevel(LevelData level)
+    {
+       list.Add(level);
+    }
 }

@@ -852,7 +852,7 @@ MonoBehaviour:
   pipesList: {fileID: 11400000, guid: be2d9c0091a4aba4a89a4befc1d41433, type: 2}
   empty: {fileID: 2412127136588571553, guid: b2c7530351e95ec4a8eee508541a9695, type: 3}
   pipes: {fileID: 1956885802}
-  progressCheck: {fileID: 1956885803}
+  gameController: {fileID: 1563011528}
 --- !u!1 &970709313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1135,7 @@ GameObject:
   - component: {fileID: 1563011525}
   - component: {fileID: 1563011526}
   - component: {fileID: 1563011527}
+  - component: {fileID: 1563011528}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1168,7 +1169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ed9cc4fe321334684bec682479150c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressCheck: {fileID: 1956885803}
 --- !u!114 &1563011527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,10 +1183,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winPanel: {fileID: 1121430857}
   spawnBoard: {fileID: 938118057}
-  pipesList: {fileID: 11400000, guid: be2d9c0091a4aba4a89a4befc1d41433, type: 2}
-  pipesParent: {fileID: 1956885802}
   timerText: {fileID: 233092363}
   gamePanelLevelTextName: {fileID: 1259670137}
+--- !u!114 &1563011528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563011524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0885726809e374c8d1cb1bbb7e6dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneController: {fileID: 1563011527}
+  spawnBoard: {fileID: 938118057}
+  pipesList: {fileID: 11400000, guid: be2d9c0091a4aba4a89a4befc1d41433, type: 2}
+  pipes: {fileID: 1956885802}
 --- !u!1 &1956885801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,7 +1210,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1956885802}
-  - component: {fileID: 1956885803}
   m_Layer: 0
   m_Name: Pipes
   m_TagString: Untagged
@@ -1218,20 +1231,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1956885803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956885801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be0885726809e374c8d1cb1bbb7e6dde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneController: {fileID: 1563011527}
-  spawnBoard: {fileID: 938118057}
 --- !u!1 &2025781054
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,8 @@ public class SpawnBoard : MonoBehaviour
     public PipesList pipesList;
     public GameObject empty;
     public Transform pipes;
-    public ProgressCheck progressCheck;
+    public GameController gameController;
     private Transform board;
-    private Quaternion[] dir = new Quaternion[] {Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -90), Quaternion.Euler(0, 0, -180), Quaternion.Euler(0, 0, -270)};
     private List<string> tags = new List<string>{"Incoming", "Outgoing", "Flat", "Angle"};
 
     private void Start()
@@ -26,8 +25,8 @@ public class SpawnBoard : MonoBehaviour
         levelNumber = PlayerPrefs.GetInt("levelNumber");
         if (levelNumber == null)
         {
-            PlayerPrefs.SetInt("levelNumber", 1);
-            levelNumber = 1;
+            PlayerPrefs.SetInt("levelNumber", 0);
+            levelNumber = 0;
         }
         if (levelNumber > levelsDeta.list.Count-1)
             levelNumber = levelsDeta.list.Count-1;
@@ -35,21 +34,13 @@ public class SpawnBoard : MonoBehaviour
         CleanBoard();
         SpawnMap();
         SpawnPipes();
-        Randomize();
-        progressCheck.StartCheck(xSize, ySize);
+        gameController.StartCheck(xSize, ySize);
     }
 
     private void CleanBoard()
     {
         while (board.childCount > 0) DestroyImmediate(board.GetChild(0).gameObject);
         while (pipes.childCount > 0) DestroyImmediate(pipes.GetChild(0).gameObject);
-    }
-
-    public void Randomize()
-    {
-        foreach(Transform child in pipes)
-            if (child.gameObject.tag == tags[2] || child.gameObject.tag == tags[3])
-                child.rotation = dir[Random.Range(0, dir.Length-1)];
     }
 
     private void SpawnMap()

@@ -8,19 +8,18 @@ public class SceneController : MonoBehaviour
 {
     public GameObject winPanel;
     public SpawnBoard spawnBoard;
-    public PipesList pipesList;
-    public Transform pipesParent;
     public Text timerText;
     public Text gamePanelLevelTextName;
-    private float timeInSeconds = 0;
-        
+
+    private GameController gameController;
+    private float timeInSeconds = 0;    
     private const string levelTextName = "LevelText";
     private const string timerStoppedName = "TimerText";
     private const string levelText = "LEVEL ";
-    private List<string> tags = new List<string>{"Flat", "Angle"};
 
     private void Start()
     {
+        gameController = this.GetComponent<GameController>();
         StartLevel();
     }
 
@@ -34,7 +33,7 @@ public class SceneController : MonoBehaviour
 
     private void Update()
     {
-        if (!ProgressCheck.winDiscovered)
+        if (!GameController.winDiscovered)
         {
             timeInSeconds += Time.deltaTime;
 
@@ -66,42 +65,14 @@ public class SceneController : MonoBehaviour
 
     public void CloseWinPanel()
     {
-        ProgressCheck.winDiscovered = false;
+        GameController.winDiscovered = false;
         spawnBoard.StartSpawnBoard();
         StartLevel();
     }
 
     public void PressedHelpButton()
     {
-        int randomID = Random.Range(0, pipesParent.childCount-1);
-        GameObject randomPipe = pipesParent.GetChild(randomID).gameObject;
-        bool rotated = false;
-        if (tags.Contains(randomPipe.tag))
-            foreach(PipeData pipe in pipesList.list)
-                if (pipe.id == randomPipe.name && !rotated)
-                {
-                    float prevRotation = randomPipe.transform.eulerAngles.z;
-                    
-                    if (randomPipe.tag == tags[0])
-                        if ((pipe.rotZ == 0 && prevRotation != 180 && prevRotation != -180 && prevRotation != 0) || 
-                            (pipe.rotZ == -90 && prevRotation != 270 && prevRotation != -270 && prevRotation != 90 && prevRotation != -90))
-                            rotated = true;
-
-                    if (randomPipe.tag == tags[1])
-                        if ((pipe.rotZ == -90 && prevRotation != 270 && prevRotation != -90) || 
-                            (pipe.rotZ == -180 && prevRotation != -180 && prevRotation != 180) ||
-                            (pipe.rotZ == -270 && prevRotation != -270 && prevRotation != 90) ||
-                            (pipe.rotZ == 0 && prevRotation != 0))
-                            rotated = true;
-
-                    if (rotated)
-                    {
-                        randomPipe.transform.rotation = Quaternion.Euler(0, 0, pipe.rotZ);
-                        pipesParent.gameObject.GetComponent<ProgressCheck>().CheckWin(randomPipe, prevRotation);
-                    }                 
-                }
-        if (!rotated)
-            PressedHelpButton();
+        gameController.AutoRotateCell();
     }
 
 }

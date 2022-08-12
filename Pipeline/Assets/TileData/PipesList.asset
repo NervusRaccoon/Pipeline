@@ -17,61 +17,61 @@ MonoBehaviour:
     rotZ: 0
     pref: {fileID: 6794151203796674145, guid: 911fbc6ecdf429943a1a85a2cbf0fed3, type: 3}
   - id: tubeAngle90
-    rotZ: -90
+    rotZ: 270
     pref: {fileID: 6794151203796674145, guid: 911fbc6ecdf429943a1a85a2cbf0fed3, type: 3}
   - id: tubeAngle180
-    rotZ: -180
+    rotZ: 180
     pref: {fileID: 6794151203796674145, guid: 911fbc6ecdf429943a1a85a2cbf0fed3, type: 3}
   - id: tubeAngle270
-    rotZ: -270
+    rotZ: 90
     pref: {fileID: 6794151203796674145, guid: 911fbc6ecdf429943a1a85a2cbf0fed3, type: 3}
   - id: border0
     rotZ: 0
     pref: {fileID: 8446392530060723604, guid: e82bd1cde9ba5214f82e65abd4a25a49, type: 3}
   - id: border90
-    rotZ: -90
+    rotZ: 270
     pref: {fileID: 8446392530060723604, guid: e82bd1cde9ba5214f82e65abd4a25a49, type: 3}
   - id: border180
-    rotZ: -180
+    rotZ: 180
     pref: {fileID: 8446392530060723604, guid: e82bd1cde9ba5214f82e65abd4a25a49, type: 3}
   - id: border270
-    rotZ: -270
+    rotZ: 90
     pref: {fileID: 8446392530060723604, guid: e82bd1cde9ba5214f82e65abd4a25a49, type: 3}
   - id: borderAngle0
     rotZ: 0
     pref: {fileID: 3536538366273094496, guid: 8b59bcda7a4fd2c409d2680fc63299db, type: 3}
   - id: borderAngle90
-    rotZ: -90
+    rotZ: 270
     pref: {fileID: 3536538366273094496, guid: 8b59bcda7a4fd2c409d2680fc63299db, type: 3}
   - id: borderAngle180
-    rotZ: -180
+    rotZ: 180
     pref: {fileID: 3536538366273094496, guid: 8b59bcda7a4fd2c409d2680fc63299db, type: 3}
   - id: borderAngle270
-    rotZ: -270
+    rotZ: 90
     pref: {fileID: 3536538366273094496, guid: 8b59bcda7a4fd2c409d2680fc63299db, type: 3}
   - id: borderTubeIncoming0
     rotZ: 0
     pref: {fileID: 6066165710210422163, guid: 6b12821569788594ebe3d1d27d6c334b, type: 3}
   - id: borderTubeIncoming90
-    rotZ: -90
+    rotZ: 270
     pref: {fileID: 6066165710210422163, guid: 6b12821569788594ebe3d1d27d6c334b, type: 3}
   - id: borderTubeIncoming180
-    rotZ: -180
+    rotZ: 180
     pref: {fileID: 6066165710210422163, guid: 6b12821569788594ebe3d1d27d6c334b, type: 3}
   - id: borderTubeIncoming270
-    rotZ: -270
+    rotZ: 90
     pref: {fileID: 6066165710210422163, guid: 6b12821569788594ebe3d1d27d6c334b, type: 3}
   - id: borderTubeOutgoing0
     rotZ: 0
     pref: {fileID: 8435522113242929278, guid: 651b54596dff3414aa9c61894878c1e2, type: 3}
   - id: borderTubeOutgoing90
-    rotZ: -90
+    rotZ: 270
     pref: {fileID: 8435522113242929278, guid: 651b54596dff3414aa9c61894878c1e2, type: 3}
   - id: borderTubeOutgoing180
-    rotZ: -180
+    rotZ: 180
     pref: {fileID: 8435522113242929278, guid: 651b54596dff3414aa9c61894878c1e2, type: 3}
   - id: borderTubeOutgoing270
-    rotZ: -270
+    rotZ: 90
     pref: {fileID: 8435522113242929278, guid: 651b54596dff3414aa9c61894878c1e2, type: 3}
   - id: tubeFlat0
     rotZ: 0
